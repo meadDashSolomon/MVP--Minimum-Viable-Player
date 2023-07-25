@@ -2,15 +2,14 @@ import TopCriteria from "./subcomponents/TopCriteria";
 import LeftCriteria from "./subcomponents/LeftCriteria";
 import LittleGrid from "./subcomponents/LittleGrid";
 
-const BigGrid = ({setShowSearch}) => {
-
+const BigGrid = () => {
   return (
-    <div className="grid grid-cols-9 grid-rows-4" >
+    <div className="grid grid-cols-9 grid-rows-4">
       <TopCriteria />
       <LeftCriteria />
-      <LittleGrid setShowSearch={setShowSearch} />
+      <LittleGrid />
     </div>
-  )
-}
+  );
+};
 
 export default BigGrid;

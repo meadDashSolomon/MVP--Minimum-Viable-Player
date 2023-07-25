@@ -1,21 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 import RulesModal from "./components/RulesModal";
-import Header from './components/Header';
-import BigGrid from './components/Grid/BigGrid'
-import Search from './components/Search'
-import './input.css'
+import Header from "./components/Header";
+import BigGrid from "./components/Grid/BigGrid";
+import Search from "./components/Search";
+import "./input.css";
 
 function App() {
-  const [showSearch, setShowSearch] = useState(false);
-
   return (
     <div className="bg-black pb-20">
-    {/* <RulesModal /> */}
+      {/* <RulesModal /> */}
       <Header />
-      <BigGrid setShowSearch={setShowSearch} />
-      {showSearch && <Search setShowSearch={setShowSearch} />}
+      <BigGrid />
     </div>
   );
 }
 
-export default App
+export default App;
