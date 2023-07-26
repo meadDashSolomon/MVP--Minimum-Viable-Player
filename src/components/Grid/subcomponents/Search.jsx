@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-const Search = ({ setShowSearch, selectedCell, updateColor }) => {
+type SearchProps = {
+  setShowSearch: (value: boolean) => void;
+  selectedCell: number | null;
+  updateColor: (cell: number, isCorrect: boolean) => void;
+};
+
+const Search = ({ setShowSearch, selectedCell, updateColor }: SearchProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [correctAnswers, setCorrectAnswers] = useState({
     1: [
@@ -686,11 +692,15 @@ const Search = ({ setShowSearch, selectedCell, updateColor }) => {
     ],
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const isCorrect = correctAnswers[selectedCell].includes(searchTerm);
-    updateColor(selectedCell, isCorrect);
+    if (selectedCell !== null && selectedCell in correctAnswers) {
+      const key = selectedCell as keyof typeof correctAnswers;
+      const isCorrect = correctAnswers[key].includes(searchTerm);
+      updateColor(selectedCell, isCorrect);
+    }
+
     setShowSearch(false);
   };
 

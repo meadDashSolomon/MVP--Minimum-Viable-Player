@@ -3,12 +3,12 @@ import Search from "./Search";
 
 const LittleGrid = () => {
   const [showSearch, setShowSearch] = useState(false);
-  const [selectedCell, setSelectedCell] = useState(null);
+  const [selectedCell, setSelectedCell] = useState<number | null>(null);
   const [cellColors, setCellColors] = useState(
     new Array(9).fill("bg-blue-500")
   );
 
-  const updateColor = (cell, isCorrect) => {
+  const updateColor = (cell: number, isCorrect: boolean) => {
     setCellColors((prevColors) => {
       const newColors = [...prevColors];
       newColors[cell - 1] = isCorrect ? "bg-green-500" : "bg-red-500";

@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, FC, FormEvent } from "react";
 import axios from "axios";
 
-function CreateUser() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+type HandleProfileCreated = () => void;
+type Username = string;
+type Password = string;
+type SubmitEvent = FormEvent<HTMLFormElement>;
 
-  const handleSubmit = async (e) => {
+interface CreateUserProps {
+  handleProfileCreated: HandleProfileCreated;
+}
+
+const CreateUser: FC<CreateUserProps> = ({ handleProfileCreated }) => {
+  const [username, setUsername] = useState<Username>("");
+  const [password, setPassword] = useState<Password>("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       await axios.post("/users", { username, password });
       alert("User created successfully.");
+      handleProfileCreated();
     } catch (err) {
       console.log(err);
       alert("Error creating user.");
@@ -86,6 +96,6 @@ function CreateUser() {
       </div>
     </div>
   );
-}
+};
 
 export default CreateUser;

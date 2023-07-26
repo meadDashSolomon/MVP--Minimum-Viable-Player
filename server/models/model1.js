@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+// import mongoose from "mongoose";
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -26,14 +26,18 @@ db.once("open", () => console.log("MongoDB connected..."));
 
 const User = mongoose.model("User", UserSchema);
 
-exports.saveUser = async (username, password) => {
+export const saveUser = async (
+  username: string,
+  password: string
+): Promise<unknown> => {
   const user = new User({ username, password });
+  // console log the return to set unknown above or dont it wont break anything
   return user.save();
 };
 
-exports.saveScore = async (highScore, username) => {
-  return User.updateOne(
-    { username: username },
-    { $set: { highScore: highScore } }
-  );
-};
+// exports.saveScore = async (highScore, username) => {
+//   return User.updateOne(
+//     { username: username },
+//     { $set: { highScore: highScore } }
+//   );
+// };

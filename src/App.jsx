@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import RulesModal from "./components/RulesModal";
+import { useState } from "react";
+// import RulesModal from "./components/RulesModal";
 import Header from "./components/Header";
 import BigGrid from "./components/Grid/BigGrid";
 import CreateUser from "./components/CreateUser";
