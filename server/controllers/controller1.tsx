@@ -1,15 +1,21 @@
-const { findPlayer } = require("./model");
+const { saveUser, saveScore } = require("./model");
 
-// does TS require a different export technique?
-exports.checkPlayer = (queryTerm, res) => {
-  return findPlayer(queryTerm)
-    .then((wasGuessCorrect) => {
-      console.log("");
-      // res . . .
-      return wasGuessCorrect;
-    })
-    .catch((err) => {
-      console.log("");
-      return res.sendStatus(400);
-    });
+exports.postUser = async (username, password, res) => {
+  try {
+    await saveUser(username, password);
+    res.send("User created successfully.");
+  } catch (err) {
+    console.log("CONTROLLER ERROR POSTING USER:::::", err);
+    res.status(500).send("Error creating user.");
+  }
+};
+
+exports.postScore = async (highScore, username, res) => {
+  try {
+    await saveScore(highScore, username);
+    res.send("Score posted successfully.");
+  } catch (err) {
+    console.log("CONTROLLER ERROR POSTING SCORE:::::", err);
+    res.status(500).send("Error creating user.");
+  }
 };

@@ -1,8 +1,18 @@
 const mongoose = require("mongoose");
 
-const playersSchema = new mongoose.Schema({
-  name: String,
-  photo_url: String,
+const UserSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  highScore: {
+    type: Number,
+    default: 0,
+  },
 });
 
 mongoose.connect("mongodb://localhost:27017/MVP", {
@@ -14,4 +24,16 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", () => console.log("MongoDB connected..."));
 
-const Players = mongoose.model("Player", playersSchema);
+const User = mongoose.model("User", UserSchema);
+
+exports.saveUser = async (username, password) => {
+  const user = new User({ username, password });
+  return user.save();
+};
+
+exports.saveScore = async (highScore, username) => {
+  return User.updateOne(
+    { username: username },
+    { $set: { highScore: highScore } }
+  );
+};

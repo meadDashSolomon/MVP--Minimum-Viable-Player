@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-const { checkPlayer } = require("./controller");
+const { postUser, updateHighScore } = require("./controllers/controller1");
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
@@ -9,5 +9,24 @@ app.listen(port, () => {
 
 app.use(express.json());
 
-// Get/Post/Put Requests
-// app.get("/", (req, res) => {});
+app.post("/users", async (req, res) => {
+  const { username, password } = req.body;
+  postUser(username, password, res)
+    .then((savedUser) => {
+      console.log("APP.TSX SUCCESSFULLY SAVED USER:::::", savedUser);
+    })
+    .catch((err) => {
+      console.log("APP.TSX ERROR SAVING USER:::::", err);
+    });
+});
+
+app.put("/users", async (req, res) => {
+  const { highScore, username } = req.body;
+  updateHighScore(highScore, username, res)
+    .then((savedScore) => {
+      console.log("APP.TSX SUCCESSFULLY SAVED SCORE:::::", savedScore);
+    })
+    .catch((err) => {
+      console.log("APP.TSX ERROR SAVING SCORE:::::", err);
+    });
+});
